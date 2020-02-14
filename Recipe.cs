@@ -9,10 +9,10 @@ namespace LemonadeStand_3DayStarter
     class Recipe
     {
         //member vars
-        int amountOfLemons;
-        int amountOfSugarCubes;
-        int amountOfIceCubes;
-        double pricePerCup;
+        public int amountOfLemons;
+        public int amountOfSugarCubes;
+        public int amountOfIceCubes;
+        public double pricePerCup;
         //constructor
         public Recipe()
         {
@@ -33,7 +33,8 @@ namespace LemonadeStand_3DayStarter
             catch(Exception)
             {
                 HowManyLemons();
-            }            
+            }
+            amountOfLemons = userInput;
             return userInput;
         }
         public int HowManySugars()

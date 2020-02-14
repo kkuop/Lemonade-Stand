@@ -37,6 +37,7 @@ namespace LemonadeStand_3DayStarter
             BuyIngredientsFromStore();
             BuildRecipe();
             //Crunch the numbers (run the algorithm)
+            OpenForBusiness();
             //Display report
             //Loop back through starting from displaying the weather report
         }
@@ -139,6 +140,10 @@ namespace LemonadeStand_3DayStarter
                 player[i].recipe.HowManyIceCubes();
                 player[i].recipe.HowMuchPerCup();
             }
+        }
+        private void OpenForBusiness()
+        {
+
         }
     }
 }
