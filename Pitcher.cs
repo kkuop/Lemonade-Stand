@@ -8,5 +8,17 @@ namespace LemonadeStand_3DayStarter
 {
     class Pitcher
     {
+        //member vars
+        int cupsLeftInPitcher;
+        //constructor
+        public Pitcher()
+        {
+            cupsLeftInPitcher = 12;
+        }
+        //member methods
+        public void PourACup()
+        {
+            cupsLeftInPitcher -= 1;
+        }
     }
 }

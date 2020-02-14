@@ -25,8 +25,7 @@ namespace LemonadeStand_3DayStarter
             DisplayRules();
             ClearConsole();
             //How many people will be playing?
-            HowManyPlayers();
-            ClearConsole();
+            HowManyPlayers();            
             //Choose duration (7,14,21,28)
             ChooseDuration();
             ClearConsole();
@@ -36,7 +35,8 @@ namespace LemonadeStand_3DayStarter
             ClearConsole();
             //Get user input (how many glasses, what will be the price)
             BuyIngredientsFromStore();
-            //Crunch the numbers
+            BuildRecipe();
+            //Crunch the numbers (run the algorithm)
             //Display report
             //Loop back through starting from displaying the weather report
         }
@@ -71,6 +71,7 @@ namespace LemonadeStand_3DayStarter
             {
                 player.Add(new Player());
             }
+            Console.Clear();
             
         }
         private void ChooseDuration()
@@ -94,7 +95,8 @@ namespace LemonadeStand_3DayStarter
             }
             else
             {
-                Console.WriteLine("\nHere comes day 1");
+                Console.Clear();
+                Console.WriteLine("\nHere comes day 1");                
             }
             
         }
@@ -118,9 +120,25 @@ namespace LemonadeStand_3DayStarter
             
             for (int i = 0; i < player.Count; i++)
             {
-                Console.WriteLine($"Player {i}, please choose what you would like to buy from the store...");
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i+1}, it's time to make your lemonade...");
                 store.SellLemons(player[i]);
+                store.SellSugarCubes(player[i]);
+                store.SellIceCubes(player[i]);
+                store.SellCups(player[i]);
             }            
+        }
+        private void BuildRecipe()
+        {
+            for (int i = 0; i < player.Count; i++)
+            {
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i+1}, it's time to build your recipe...");
+                player[i].recipe.HowManyLemons();
+                player[i].recipe.HowManySugars();
+                player[i].recipe.HowManyIceCubes();
+                player[i].recipe.HowMuchPerCup();
+            }
         }
     }
 }

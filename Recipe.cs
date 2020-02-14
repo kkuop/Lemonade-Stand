@@ -8,5 +8,75 @@ namespace LemonadeStand_3DayStarter
 {
     class Recipe
     {
+        //member vars
+        int amountOfLemons;
+        int amountOfSugarCubes;
+        int amountOfIceCubes;
+        double pricePerCup;
+        //constructor
+        public Recipe()
+        {
+            amountOfLemons = 0;
+            amountOfSugarCubes = 0;
+            amountOfIceCubes = 0;
+            pricePerCup = 0;
+            }
+        //member methods
+        public int HowManyLemons()
+        {
+            int userInput = 0;
+            Console.WriteLine("How many lemons should your pitcher contain?");
+            try
+            {
+                userInput = Convert.ToInt32(Console.ReadLine());
+            }
+            catch(Exception)
+            {
+                HowManyLemons();
+            }            
+            return userInput;
+        }
+        public int HowManySugars()
+        {
+            int userInput = 0;
+            Console.WriteLine("How many sugar cubes should your pitcher contain?");
+            try
+            {
+                userInput = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                HowManyLemons();
+            }
+            return userInput;
+        }
+        public int HowManyIceCubes()
+        {
+            int userInput = 0;
+            Console.WriteLine("How many ice cubes should your pitcher contain?");
+            try
+            {
+                userInput = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                HowManyLemons();
+            }
+            return userInput;
+        }
+        public double HowMuchPerCup()
+        {
+            double userInput = 0;
+            Console.WriteLine("How much would you like to charge per cup?");
+            try
+            {
+                userInput = Convert.ToDouble(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                HowManyLemons();
+            }
+            return userInput;
+        }
     }
 }
