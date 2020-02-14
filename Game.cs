@@ -11,9 +11,10 @@ namespace LemonadeStand_3DayStarter
         //member vars
         int howManyPlayers;
         int howManyDays;
-        Player player;
+        List<Player> player;
         List<Day> days;
         int currentDay;
+        Store store;
         //constructor
 
         //member methods
@@ -34,7 +35,7 @@ namespace LemonadeStand_3DayStarter
             DisplayWeatherInformation();
             ClearConsole();
             //Get user input (how many glasses, what will be the price)
-            GetUserInput();
+            BuyIngredientsFromStore();
             //Crunch the numbers
             //Display report
             //Loop back through starting from displaying the weather report
@@ -55,6 +56,7 @@ namespace LemonadeStand_3DayStarter
         }
         private void HowManyPlayers()
         {
+            player = new List<Player>();
             Console.Write("How many players?\n\n__");
             try
             {
@@ -67,7 +69,7 @@ namespace LemonadeStand_3DayStarter
             }
             for (int i=0;i<howManyPlayers;i++)
             {
-                new Player();
+                player.Add(new Player());
             }
             
         }
@@ -110,9 +112,15 @@ namespace LemonadeStand_3DayStarter
             currentDay = 0;
             Console.WriteLine($"Today's forecast is: {days[currentDay].weather.condition}\n\nThe high temperature will be: {days[currentDay].weather.temperature} ");
         }
-        private void GetUserInput()
+        private void BuyIngredientsFromStore()
         {
-
+            store = new Store();
+            
+            for (int i = 0; i < player.Count; i++)
+            {
+                Console.WriteLine($"Player {i}, please choose what you would like to buy from the store...");
+                store.SellLemons(player[i]);
+            }            
         }
     }
 }
