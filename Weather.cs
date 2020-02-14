@@ -8,5 +8,10 @@ namespace LemonadeStand_3DayStarter
 {
     class Weather
     {
+        //member vars
+
+        //constructor
+
+        //member methods
     }
 }
