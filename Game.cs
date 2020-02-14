@@ -11,6 +11,9 @@ namespace LemonadeStand_3DayStarter
         //member vars
         int howManyPlayers;
         int howManyDays;
+        Player player;
+        List<Day> days;
+        int currentDay;
         //constructor
 
         //member methods
@@ -27,7 +30,11 @@ namespace LemonadeStand_3DayStarter
             ChooseDuration();
             ClearConsole();
             //Display weather report
+            GenerateListOfDays();
+            DisplayWeatherInformation();
+            ClearConsole();
             //Get user input (how many glasses, what will be the price)
+            GetUserInput();
             //Crunch the numbers
             //Display report
             //Loop back through starting from displaying the weather report
@@ -88,6 +95,24 @@ namespace LemonadeStand_3DayStarter
                 Console.WriteLine("\nHere comes day 1");
             }
             
+        }
+
+        private void GenerateListOfDays()
+        {
+            days = new List<Day>();
+            for (int i = 0; i < howManyDays; i++)
+            {
+                days.Add(new Day());
+            }
+        }
+        private void DisplayWeatherInformation()
+        {
+            currentDay = 0;
+            Console.WriteLine($"Today's forecast is: {days[currentDay].weather.condition}\n\nThe high temperature will be: {days[currentDay].weather.temperature} ");
+        }
+        private void GetUserInput()
+        {
+
         }
     }
 }
