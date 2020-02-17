@@ -33,6 +33,11 @@ namespace LemonadeStand_3DayStarter
             }
         }
 
+        public void RemoveLemonsFromInventory()
+        {
+            lemons.RemoveAt(0);
+        }
+
         public void AddSugarCubesToInventory(int numberOfSugarCubes)
         {
             for(int i = 0; i < numberOfSugarCubes; i++)
@@ -40,6 +45,11 @@ namespace LemonadeStand_3DayStarter
                 SugarCube sugarCube = new SugarCube();
                 sugarCubes.Add(sugarCube);
             }
+        }
+
+        public void RemoveSugarCubesFromInventory()
+        {
+            sugarCubes.RemoveAt(0);
         }
 
         public void AddIceCubesToInventory(int numberOfIceCubes)
@@ -51,6 +61,11 @@ namespace LemonadeStand_3DayStarter
             }
         }
 
+        public void RemoveIceCubesFromInventory()
+        {
+            iceCubes.RemoveAt(0);
+        }
+
         public void AddCupsToInventory(int numberOfCups)
         {
             for(int i = 0; i < numberOfCups; i++)
@@ -58,6 +73,11 @@ namespace LemonadeStand_3DayStarter
                 Cup cup = new Cup();
                 cups.Add(cup);
             }
+        }
+
+        public void RemoveCupsFromInventory()
+        {
+            cups.RemoveAt(0);
         }
     }
 }

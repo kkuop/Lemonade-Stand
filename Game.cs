@@ -47,6 +47,8 @@ namespace LemonadeStand_3DayStarter
                 ClearConsole();
                 //Open for business
                 OpenForBusiness();
+                //Deduct what was used
+                SubtractWhatWasUsed();
                 //Display report
                 DisplayReport();
                 ClearConsole();
@@ -245,6 +247,20 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < howManyPlayers; i++)
             {
                 player[i].pitcher.cupsSold = player[i].pitcher.cupsBefore - player[i].pitcher.cupsLeftInPitcher;
+                for (int j = 0; j < player[i].pitcher.cupsSold; j++)
+                {
+                    player[i].inventory.cups.RemoveAt(0);
+                }
+            }
+        }
+        private void SubtractWhatWasUsed()
+        {
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                player[i].inventory.RemoveLemonsFromInventory();
+                player[i].inventory.RemoveSugarCubesFromInventory();
+                player[i].inventory.RemoveIceCubesFromInventory();
+                player[i].inventory.RemoveCupsFromInventory();
             }
         }
         private void DisplayReport()
