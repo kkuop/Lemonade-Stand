@@ -22,6 +22,12 @@ namespace LemonadeStand_3DayStarter
             pricePerCup = 0;
             }
         //member methods
+        private void ClearConsole()
+        {
+            Console.WriteLine("That is not valid input!\nPress any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
+        }
         public int HowManyLemons()
         {
             int userInput = 0;
@@ -32,6 +38,7 @@ namespace LemonadeStand_3DayStarter
             }
             catch(Exception)
             {
+                ClearConsole();
                 HowManyLemons();
             }
             amountOfLemons = userInput;
@@ -47,7 +54,8 @@ namespace LemonadeStand_3DayStarter
             }
             catch (Exception)
             {
-                HowManyLemons();
+                ClearConsole();
+                HowManySugars();
             }
             return userInput;
         }
@@ -61,7 +69,8 @@ namespace LemonadeStand_3DayStarter
             }
             catch (Exception)
             {
-                HowManyLemons();
+                ClearConsole();
+                HowManyIceCubes();
             }
             return userInput;
         }
@@ -75,7 +84,8 @@ namespace LemonadeStand_3DayStarter
             }
             catch (Exception)
             {
-                HowManyLemons();
+                ClearConsole();
+                HowMuchPerCup();
             }
             return userInput;
         }

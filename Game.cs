@@ -28,16 +28,25 @@ namespace LemonadeStand_3DayStarter
             HowManyPlayers();            
             //Choose duration 
             ChooseDuration();
-            ClearConsole();
             GenerateListOfDays();
             ClearConsole();
-            //****CREATE A METHOD HERE TO DISPLAY INVENTORY MAYBE A MENU
             BuildRecipe();
             BuyIngredientsFromStore();
             for (int i = 0; i < howManyDays; i++)
             {
+                ClearConsole();
+                //Display menu
+                DisplayMenu();
+                ClearConsole();
+                //Weather
                 DisplayWeatherInformation();
+                ClearConsole();
+                //How many pitchers to make
+                PrepareThePitchers();
+                ClearConsole();
+                //Open for business
                 OpenForBusiness();
+                ClearConsole();
                 //Display report
                 //Loop back through 
                 currentDay++;
@@ -100,7 +109,7 @@ namespace LemonadeStand_3DayStarter
             else
             {
                 Console.Clear();
-                Console.WriteLine("\nLet's stock your store.");                
+                Console.WriteLine("\nLet's build your recipe!");                
             }
             
         }
@@ -117,6 +126,16 @@ namespace LemonadeStand_3DayStarter
         private void DisplayWeatherInformation()
         {
             Console.WriteLine($"Today's forecast is: {days[currentDay].weather.condition}\n\nThe high temperature will be: {days[currentDay].weather.temperature} ");
+            
+        }
+        private void DisplayInventory()
+        {
+            for (int i = 0; i < howManyPlayers; i++)
+            {            
+            Console.WriteLine($"Player {i+1}, here is your current inventory...\n");
+            Console.WriteLine($"Lemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.iceCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\nWallet: {player[i].wallet.Money}");
+                
+            }
         }
         private void BuyIngredientsFromStore()
         {
@@ -125,7 +144,7 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < player.Count; i++)
             {
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i+1}, it's time to make your lemonade...");
+                Console.WriteLine($"\nPlayer {i+1}, it's time to stock your inventory...");
                 store.SellLemons(player[i]);
                 store.SellSugarCubes(player[i]);
                 store.SellIceCubes(player[i]);
@@ -146,7 +165,32 @@ namespace LemonadeStand_3DayStarter
                  
             }
         }
-        
+        private void DisplayMenu()
+        {
+            Console.WriteLine("Please choose an option...\n\na)Change Recipe\nb)Buy Ingredients\nc)See Inventory\nd)Advance Day\n");
+            ConsoleKeyInfo userInput = Console.ReadKey();
+            if (userInput.KeyChar == 'a')
+            {
+                BuildRecipe();
+            }
+            else if (userInput.KeyChar == 'b')
+            {
+                BuyIngredientsFromStore();
+            }
+            else if (userInput.KeyChar == 'c')
+            {
+                DisplayInventory();
+            }
+            else
+            {
+                ClearConsole();
+            }
+        }
+        private void PrepareThePitchers()
+        {
+            Console.WriteLine("How many pitchers of lemonade would you like to make?");
+            
+        }
         private void OpenForBusiness()
         
         {
