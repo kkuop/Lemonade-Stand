@@ -33,7 +33,7 @@ namespace LemonadeStand_3DayStarter
             ClearConsole();
             BuildRecipe();
             BuyIngredientsFromStore();
-            for (int i = 0; i < howManyDays; i++)
+            while (currentDay < howManyDays)
             {
                 ClearConsole();
                 //Display menu
@@ -43,12 +43,13 @@ namespace LemonadeStand_3DayStarter
                 DisplayWeatherInformation();
                 ClearConsole();
                 //How many pitchers to make
-                PrepareThePitchers();
+                PrepareThePitcher();
                 ClearConsole();
                 //Open for business
                 OpenForBusiness();
-                ClearConsole();
                 //Display report
+                DisplayReport();
+                ClearConsole();
                 //Loop back through 
                 currentDay++;
             }
@@ -132,9 +133,10 @@ namespace LemonadeStand_3DayStarter
         private void DisplayInventory()
         {
             for (int i = 0; i < howManyPlayers; i++)
-            {            
+            {
+                Console.Clear();
             Console.WriteLine($"Player {i+1}, here is your current inventory...\n");
-            Console.WriteLine($"Lemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.iceCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\nWallet: {player[i].wallet.Money}");
+            Console.WriteLine($"Lemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.iceCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}");
                 
             }
         }
@@ -149,8 +151,7 @@ namespace LemonadeStand_3DayStarter
                 store.SellLemons(player[i]);
                 store.SellSugarCubes(player[i]);
                 store.SellIceCubes(player[i]);
-                store.SellCups(player[i]);
-                player[i].pitcher.cupsLeftInPitcher = player[i].inventory.cups.Count;
+                store.SellCups(player[i]);                
             }            
         }
         private void BuildRecipe()
@@ -184,54 +185,75 @@ namespace LemonadeStand_3DayStarter
             }
             else
             {
-                ClearConsole();
+                Console.Clear();
             }
         }
-        private void PrepareThePitchers()
+        private void PrepareThePitcher()
         {
             int userInput = 0; 
             for (int i = 0; i < player.Count; i++)
             {
+                if ((player[i].recipe.amountOfLemons > player[i].inventory.lemons.Count) || (player[i].recipe.amountOfSugarCubes > player[i].inventory.sugarCubes.Count) || (player[i].recipe.amountOfIceCubes > player[i].inventory.iceCubes.Count))
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Player {i+1}, you do not have enough supply to make the pitcher of lemonade!\n\nYou will sell 0 cups of lemonade this round.");
+                    ClearConsole();
+                    continue;
+                }
+                Console.Write($"Player {i+1}, how many cups of lemonade would you like to make? You have {player[i].inventory.cups.Count} available...\n__");
+                do
+                {
+                    try
+                    {
+                        userInput = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("That is not valid input... try again!");
+                    }
+                } while (userInput == 0);
 
 
-                Console.Write("How many pitchers of lemonade would you like to make?\n__");
-                try
-                {
-                    userInput = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("That is not valid input... try again!");
-                    PrepareThePitchers();
-                }
-                if ((player[i].recipe.amountOfLemons * userInput > player[i].inventory.lemons.Count) || (player[i].inventory.sugarCubes.Count * player[i].recipe.amountOfSugarCubes > 10)
-                {
-                    Console.WriteLine("You do not have enough supply to make this many pitchers... try making less pitchers!");
-                    PrepareThePitchers();
-                }
+                player[i].pitcher.cupsLeftInPitcher = userInput;
             }
         }
         private void OpenForBusiness()
         
         {
             //make two vars to track count of pitchers before and after
-            int pitchersBefore;
-            int pitchersAfter;
             for (int i = 0; i < howManyPlayers; i++)
             {
-                for (int j = 0; j < days[currentDay-1].customers.Count; j++)
+                player[i].pitcher.cupsBefore = player[i].pitcher.cupsLeftInPitcher;
+            }
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                for (int j = 0; j < days[currentDay].customers.Count; j++)
                 {
+                    if (player[i].pitcher.cupsLeftInPitcher < 1)
+                    {
+                        continue;
+                    }
                     if (days[currentDay].customers[j].buyingPower>player[currentDay].recipe.pricePerCup)
                     {
-                        player[j].pitcher.PourACup();
+                        player[i].pitcher.PourACup();
+                        Console.WriteLine($"{days[currentDay].customers[j].name} purchased a cup of lemonade!");
                     }
-                    if (player[j].pitcher.cupsLeftInPitcher < 1)
-                    {
-                        break;
-                    }
+                    
                 }
             }
             //when for loop is done, update the pitchersAfter var to reflect how much was sold
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                player[i].pitcher.cupsSold = player[i].pitcher.cupsBefore - player[i].pitcher.cupsLeftInPitcher;
+            }
+        }
+        private void DisplayReport()
+        {
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                Console.Write($"Player {i+1}, you sold {player[i].pitcher.cupsSold} cups of lemonade!\n\nHere is your updated inventory...\nLemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.sugarCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}");
+                
+            }
         }
     }
 }
