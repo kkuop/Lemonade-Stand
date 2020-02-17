@@ -8,6 +8,25 @@ namespace LemonadeStand_3DayStarter
 {
     static class UserInterface
     {
+        public static int GetIntUserInput(string prompt, int min, int max)
+        {
+            int userInput = 0;
+            do
+            {
+                
+                Console.Write(prompt);
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That was not valid input... try again!");
+                }
+            } while (userInput < min || userInput > max);
+            return userInput;
+
+        }
         public static int GetNumberOfItems(string itemsToGet)
         {
             bool userInputIsAnInteger = false;

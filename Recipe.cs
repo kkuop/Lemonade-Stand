@@ -33,19 +33,7 @@ namespace LemonadeStand_3DayStarter
         }
         public int HowManyLemons()
         {
-            int userInput = 0;
-            do {
-                ClearCurrentConsoleLine();
-                Console.Write("How many lemons should your pitcher contain? (1-10)\n\n__");
-                try
-                {
-                    userInput = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("That was not valid input... try again!");
-                }
-            } while (userInput<1 || userInput > 10);
+            int userInput = UserInterface.GetIntUserInput("How many lemons should your pitcher contain ? (1 - 10)\n\n__", 1, 10);
             amountOfLemons = userInput;
             return userInput;
         }

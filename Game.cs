@@ -15,8 +15,12 @@ namespace LemonadeStand_3DayStarter
         List<Day> days;
         int currentDay;
         Store store;
+        Random random;
         //constructor
-
+        public Game()
+        {
+            random = new Random();
+        }
         //member methods
         public void StartGame()
         {
@@ -28,11 +32,8 @@ namespace LemonadeStand_3DayStarter
             //How many people will be playing?
             HowManyPlayers();            
             //Choose duration 
-            ChooseDuration();
+            ChooseDuration();            
             GenerateListOfDays();
-            
-            BuildRecipe();
-            BuyIngredientsFromStore();
             while (currentDay < howManyDays)
             {
                 ClearConsole();
@@ -49,6 +50,7 @@ namespace LemonadeStand_3DayStarter
                 OpenForBusiness();
                 //Deduct what was used
                 SubtractWhatWasUsed();
+                AddProfitsToWallet();
                 //Display report
                 DisplayReport();
                 ClearConsole();
@@ -57,6 +59,7 @@ namespace LemonadeStand_3DayStarter
             }
 
         }
+        
         private void ClearConsole()
         {
             Console.WriteLine("\nPress any key to continue...");
@@ -122,6 +125,7 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < howManyDays; i++)
             {
                 days.Add(new Day());
+                
             }
             currentDay = 0;
         }
@@ -136,9 +140,10 @@ namespace LemonadeStand_3DayStarter
             {
                 Console.Clear();
             Console.WriteLine($"Player {i+1}, here is your current inventory...\n");
-            Console.WriteLine($"Lemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.iceCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}");
-                
+            Console.WriteLine($"Lemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.iceCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}"); 
             }
+            ClearConsole();
+            DisplayMenu();
         }
         private void BuyIngredientsFromStore()
         {
@@ -158,7 +163,9 @@ namespace LemonadeStand_3DayStarter
                 Console.Clear();
                 Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
                 store.SellCups(player[i]);                
-            }            
+            }
+            Console.Clear();
+            DisplayMenu();
         }
         private void BuildRecipe()
         {
@@ -179,6 +186,8 @@ namespace LemonadeStand_3DayStarter
                 player[i].recipe.pricePerCup = player[i].recipe.HowMuchPerCup();
                  
             }
+            Console.Clear();
+            DisplayMenu();
         }
         private void DisplayMenu()
         {
@@ -198,6 +207,23 @@ namespace LemonadeStand_3DayStarter
             }
             else
             {
+                for (int i = 0; i < howManyPlayers; i++)
+                {
+                    if (player[i].recipe.amountOfLemons<1 || player[i].recipe.amountOfSugarCubes < 1 || player[i].recipe.amountOfIceCubes < 1 || player[i].recipe.pricePerCup < .05) 
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"Player {i+1}, you should setup your recipe first!\n");
+                        DisplayMenu();
+                    }
+                    
+                    if(player[i].inventory.lemons.Count < 1 || player[i].inventory.sugarCubes.Count < 1 || player[i].inventory.iceCubes.Count < 1 || player[i].inventory.cups.Count < 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"Player {i + 1}, you should buy some inventory first!\n");
+                        DisplayMenu();
+                    }
+                }
+                
                 Console.Clear();
             }
         }
@@ -262,6 +288,7 @@ namespace LemonadeStand_3DayStarter
                 {
                     player[i].inventory.cups.RemoveAt(0);
                 }
+                
             }
         }
         private void SubtractWhatWasUsed()
@@ -287,7 +314,7 @@ namespace LemonadeStand_3DayStarter
         {
             for (int i = 0; i < howManyPlayers; i++)
             {
-                Console.Write($"Player {i+1}, you sold {player[i].pitcher.cupsSold} cups of lemonade!\n\nHere is your updated inventory...\nLemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.sugarCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}");
+                Console.Write($"\nPlayer {i+1}, you sold {player[i].pitcher.cupsSold} cups of lemonade!\n\nHere is your updated inventory...\nLemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.sugarCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}");
                 
             }
         }

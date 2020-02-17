@@ -11,45 +11,38 @@ namespace LemonadeStand_3DayStarter
         //member vars
         public Weather weather;
         public List<Customer> customers;
+        Random random;
         //constructor
         public Day()
         {
+            random = new Random();
             weather = new Weather();
             customers = DetermineNumberOfCustomers();
         }
         //member methods
         private List<Customer> DetermineNumberOfCustomers ()
         {
-            int randomIntegerForGoodConditions = new Random().Next(30, 50);
-            int randomIntegerForMediumConditions = new Random().Next(10, 35);
-            int randomIntegerForBadConditions = new Random().Next(0, 15);
-            if(weather.condition == "Hot and Dry")
+            int amountOfCustomers;
+            customers = new List<Customer>();
+            if (weather.condition == "Hot and Dry")
             {
-                customers = new List<Customer>();
-                for (int i = 0; i < randomIntegerForGoodConditions; i++)
-                {
-                    customers.Add(new Customer());
-                }
-                return customers;
+                amountOfCustomers = random.Next(30, 50);
+    
             }
             else if (weather.condition == "Mostly Sunny" )
             {
-                customers = new List<Customer>();
-                for (int i = 0; i < randomIntegerForMediumConditions; i++)
-                {
-                    customers.Add(new Customer());
-                }
-                return customers;
+                amountOfCustomers = random.Next(10, 35);
             }
             else
             {
-                customers = new List<Customer>();
-                for (int i = 0; i < randomIntegerForBadConditions; i++)
-                {
-                    customers.Add(new Customer());
-                }
-                return customers;
+                amountOfCustomers = random.Next(0, 15);
+
             }
+            for (int i = 0; i < amountOfCustomers; i++)
+            {
+                customers.Add(new Customer());
+            }
+            return customers;
         }
     }
 }
