@@ -30,7 +30,7 @@ namespace LemonadeStand_3DayStarter
             //Choose duration 
             ChooseDuration();
             GenerateListOfDays();
-            ClearConsole();
+            
             BuildRecipe();
             BuyIngredientsFromStore();
             while (currentDay < howManyDays)
@@ -74,16 +74,22 @@ namespace LemonadeStand_3DayStarter
         private void HowManyPlayers()
         {
             player = new List<Player>();
-            Console.Write("How many players?\n\n__");
-            try
+            
+            do
             {
-                howManyPlayers = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                Console.Write("How many players?\n\n(No more than 30)\n\n__");
+                try
+                {
+                    howManyPlayers = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\nThat is not a number... try again!\n");
+                    
+                }
             }
-            catch (Exception)
-            {
-                Console.WriteLine("\nThat is not a number... try again!\n");
-                HowManyPlayers();
-            }
+            while (howManyPlayers<1 || howManyPlayers >30);
             for (int i=0;i<howManyPlayers;i++)
             {
                 player.Add(new Player());
@@ -93,29 +99,21 @@ namespace LemonadeStand_3DayStarter
         }
         private void ChooseDuration()
         {
-            Console.Write("How many days would you like the game to run? (At least 7 and no more than 100)\n\n__");
-            try
-            {
-                howManyDays = Convert.ToInt32(Console.ReadLine());
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("\nThat is not a number... try again!\n");
-                ChooseDuration();
-            }
-            if(howManyDays<7||howManyDays>100)
-            {
-                Console.Clear();
-                Console.WriteLine("Please pick a number between 7 and 100!");
-                ClearConsole();                
-                ChooseDuration();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("\nLet's build your recipe!");                
-            }
             
+            do
+            {
+                Console.Clear();
+                Console.Write("How many days would you like the game to run?\n\n(At least 7 and no more than 100)\n\n__");
+                try
+                {
+                    howManyDays = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\nThat is not a valid option... try again!\n");
+
+                }
+            } while (howManyDays <7 || howManyDays >100);
         }
 
         private void GenerateListOfDays()
@@ -151,20 +149,33 @@ namespace LemonadeStand_3DayStarter
                 Console.Clear();
                 Console.WriteLine($"\nPlayer {i+1}, it's time to stock your inventory...");
                 store.SellLemons(player[i]);
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
                 store.SellSugarCubes(player[i]);
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
                 store.SellIceCubes(player[i]);
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
                 store.SellCups(player[i]);                
             }            
         }
         private void BuildRecipe()
         {
+            Console.Clear();
             for (int i = 0; i < player.Count; i++)
             {
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i+1}, it's time to build your recipe...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");                
                 player[i].recipe.amountOfLemons = player[i].recipe.HowManyLemons();
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");
                 player[i].recipe.amountOfSugarCubes = player[i].recipe.HowManySugars();
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");
                 player[i].recipe.amountOfIceCubes = player[i].recipe.HowManyIceCubes();
+                Console.Clear();
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");
                 player[i].recipe.pricePerCup = player[i].recipe.HowMuchPerCup();
                  
             }
@@ -243,7 +254,7 @@ namespace LemonadeStand_3DayStarter
                     
                 }
             }
-            //when for loop is done, update the pitchersAfter var to reflect how much was sold
+            //when for loop is done, update the cupsSold to reflect how much was sold
             for (int i = 0; i < howManyPlayers; i++)
             {
                 player[i].pitcher.cupsSold = player[i].pitcher.cupsBefore - player[i].pitcher.cupsLeftInPitcher;
@@ -260,9 +271,18 @@ namespace LemonadeStand_3DayStarter
                 player[i].inventory.RemoveLemonsFromInventory();
                 player[i].inventory.RemoveSugarCubesFromInventory();
                 player[i].inventory.RemoveIceCubesFromInventory();
-                player[i].inventory.RemoveCupsFromInventory();
+                
             }
         }
+        private void AddProfitsToWallet()
+        {
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                double profits = player[i].recipe.pricePerCup * player[i].pitcher.cupsSold;
+                player[i].wallet.AddMoneyToWallet(profits);
+            }
+        }
+
         private void DisplayReport()
         {
             for (int i = 0; i < howManyPlayers; i++)

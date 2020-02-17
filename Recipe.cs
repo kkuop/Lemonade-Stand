@@ -22,71 +22,78 @@ namespace LemonadeStand_3DayStarter
             pricePerCup = 0;
             }
         //member methods
-        private void ClearConsole()
-        {
-            Console.WriteLine("That is not valid input!\nPress any key to continue...");
-            Console.ReadKey();
-            Console.Clear();
-        }
+        
         public int HowManyLemons()
         {
             int userInput = 0;
-            Console.WriteLine("How many lemons should your pitcher contain?");
-            try
-            {
-                userInput = Convert.ToInt32(Console.ReadLine());
-            }
-            catch(Exception)
-            {
-                ClearConsole();
-                HowManyLemons();
-            }
+            do {
+                Console.Clear();
+                Console.WriteLine("How many lemons should your pitcher contain?\n\n(1-10)");
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That was not valid input... try again!");
+                }
+            } while (userInput<1 || userInput > 10);
             amountOfLemons = userInput;
             return userInput;
         }
         public int HowManySugars()
         {
             int userInput = 0;
-            Console.WriteLine("How many sugar cubes should your pitcher contain?");
-            try
+            do
             {
-                userInput = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                ClearConsole();
-                HowManySugars();
-            }
+                Console.Clear();
+                Console.WriteLine("How many sugar cubes should your pitcher contain?\n\n(1-10)");
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That was not valid input... try again!");
+                }
+            } while (userInput < 1 || userInput > 10);
             return userInput;
         }
         public int HowManyIceCubes()
         {
             int userInput = 0;
-            Console.WriteLine("How many ice cubes should your pitcher contain?");
-            try
+            
+            do
             {
-                userInput = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                ClearConsole();
-                HowManyIceCubes();
-            }
+                Console.Clear();
+                Console.WriteLine("How many ice cubes should your pitcher contain?\n\n(1-10)");
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That was not valid input... try again!");
+                }
+            } while (userInput < 1 || userInput > 10);
             return userInput;
         }
         public double HowMuchPerCup()
         {
             double userInput = 0;
-            Console.WriteLine("How much would you like to charge per cup?");
-            try
+            do
             {
-                userInput = Convert.ToDouble(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                ClearConsole();
-                HowMuchPerCup();
-            }
+                Console.Clear();
+                Console.WriteLine("How much would you like to charge per cup?\n\n(0.05-10)");
+                try
+                {
+                    userInput = Convert.ToDouble(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That was not valid input... try again!");
+                }
+            } while (userInput < .05 || userInput > 10);
             return userInput;
         }
     }
