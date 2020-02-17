@@ -33,6 +33,7 @@ namespace LemonadeStand_3DayStarter
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddLemonsToInventory(lemonsToPurchase);
             }
+            Console.WriteLine($"You have ${player.wallet.Money} left!");
         }
 
         public void SellSugarCubes(Player player)
@@ -44,6 +45,7 @@ namespace LemonadeStand_3DayStarter
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddSugarCubesToInventory(sugarToPurchase);
             }
+            Console.WriteLine($"You have ${player.wallet.Money} left!");
         }
 
         public void SellIceCubes(Player player)
@@ -55,6 +57,7 @@ namespace LemonadeStand_3DayStarter
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddIceCubesToInventory(iceCubesToPurchase);
             }
+            Console.WriteLine($"You have ${player.wallet.Money} left!");
         }
 
         public void SellCups(Player player)
@@ -66,6 +69,7 @@ namespace LemonadeStand_3DayStarter
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddCupsToInventory(cupsToPurchase);
             }
+            Console.WriteLine($"You have ${player.wallet.Money} left!");
         }
 
         private double CalculateTransactionAmount(int itemCount, double itemPricePerUnit)

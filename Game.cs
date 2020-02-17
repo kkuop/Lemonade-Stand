@@ -20,6 +20,7 @@ namespace LemonadeStand_3DayStarter
         //member methods
         public void StartGame()
         {
+            currentDay = 0;
             //Here is the best case for single responsibility (each method has its own responsibility as we run through the entire game)
             //Display rules
             DisplayRules();
@@ -188,8 +189,27 @@ namespace LemonadeStand_3DayStarter
         }
         private void PrepareThePitchers()
         {
-            Console.WriteLine("How many pitchers of lemonade would you like to make?");
-            
+            int userInput = 0; 
+            for (int i = 0; i < player.Count; i++)
+            {
+
+
+                Console.Write("How many pitchers of lemonade would you like to make?\n__");
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That is not valid input... try again!");
+                    PrepareThePitchers();
+                }
+                if ((player[i].recipe.amountOfLemons * userInput > player[i].inventory.lemons.Count) || (player[i].inventory.sugarCubes.Count * player[i].recipe.amountOfSugarCubes > 10)
+                {
+                    Console.WriteLine("You do not have enough supply to make this many pitchers... try making less pitchers!");
+                    PrepareThePitchers();
+                }
+            }
         }
         private void OpenForBusiness()
         
@@ -199,7 +219,7 @@ namespace LemonadeStand_3DayStarter
             int pitchersAfter;
             for (int i = 0; i < howManyPlayers; i++)
             {
-                for (int j = 0; j < days[currentDay].customers.Count; j++)
+                for (int j = 0; j < days[currentDay-1].customers.Count; j++)
                 {
                     if (days[currentDay].customers[j].buyingPower>player[currentDay].recipe.pricePerCup)
                     {
