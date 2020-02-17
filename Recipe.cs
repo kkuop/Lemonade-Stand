@@ -22,13 +22,21 @@ namespace LemonadeStand_3DayStarter
             pricePerCup = 0;
             }
         //member methods
-        
+        private void ClearCurrentConsoleLine()
+        {
+            int currentCursorLine = Console.CursorTop - 1;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentCursorLine);
+        }
         public int HowManyLemons()
         {
             int userInput = 0;
             do {
-                Console.Clear();
-                Console.WriteLine("How many lemons should your pitcher contain?\n\n(1-10)");
+                ClearCurrentConsoleLine();
+                Console.Write("How many lemons should your pitcher contain? (1-10)\n\n__");
                 try
                 {
                     userInput = Convert.ToInt32(Console.ReadLine());
@@ -46,8 +54,8 @@ namespace LemonadeStand_3DayStarter
             int userInput = 0;
             do
             {
-                Console.Clear();
-                Console.WriteLine("How many sugar cubes should your pitcher contain?\n\n(1-10)");
+                ClearCurrentConsoleLine();
+                Console.Write("How many sugar cubes should your pitcher contain?  (1-10)\n\n__");
                 try
                 {
                     userInput = Convert.ToInt32(Console.ReadLine());
@@ -65,8 +73,8 @@ namespace LemonadeStand_3DayStarter
             
             do
             {
-                Console.Clear();
-                Console.WriteLine("How many ice cubes should your pitcher contain?\n\n(1-10)");
+                ClearCurrentConsoleLine();
+                Console.Write("How many ice cubes should your pitcher contain?  (1-10)\n\n__");
                 try
                 {
                     userInput = Convert.ToInt32(Console.ReadLine());
@@ -83,8 +91,8 @@ namespace LemonadeStand_3DayStarter
             double userInput = 0;
             do
             {
-                Console.Clear();
-                Console.WriteLine("How much would you like to charge per cup?\n\n(0.05-10)");
+                ClearCurrentConsoleLine();
+                Console.Write("How much would you like to charge per cup?  (0.05-10)\n\n__");
                 try
                 {
                     userInput = Convert.ToDouble(Console.ReadLine());

@@ -78,7 +78,7 @@ namespace LemonadeStand_3DayStarter
             do
             {
                 Console.Clear();
-                Console.Write("How many players?\n\n(No more than 30)\n\n__");
+                Console.Write("How many players?  (No more than 30)\n\n__");
                 try
                 {
                     howManyPlayers = Convert.ToInt32(Console.ReadLine());
@@ -166,16 +166,16 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < player.Count; i++)
             {
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");                
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...\n");                
                 player[i].recipe.amountOfLemons = player[i].recipe.HowManyLemons();
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...\n");
                 player[i].recipe.amountOfSugarCubes = player[i].recipe.HowManySugars();
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...\n");
                 player[i].recipe.amountOfIceCubes = player[i].recipe.HowManyIceCubes();
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to build your recipe...\n");
                 player[i].recipe.pricePerCup = player[i].recipe.HowMuchPerCup();
                  
             }
@@ -246,7 +246,7 @@ namespace LemonadeStand_3DayStarter
                     {
                         continue;
                     }
-                    if (days[currentDay].customers[j].buyingPower>player[currentDay].recipe.pricePerCup)
+                    if (days[currentDay].customers[j].buyingPower>player[i].recipe.pricePerCup)
                     {
                         player[i].pitcher.PourACup();
                         Console.WriteLine($"{days[currentDay].customers[j].name} purchased a cup of lemonade!");
