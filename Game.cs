@@ -152,16 +152,16 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < player.Count; i++)
             {
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i+1}, it's time to stock your inventory...");
+                Console.WriteLine($"\nPlayer {i+1}, it's time to stock your inventory...\n");
                 store.SellLemons(player[i]);
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
                 store.SellSugarCubes(player[i]);
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
                 store.SellIceCubes(player[i]);
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
                 store.SellCups(player[i]);                
             }
             Console.Clear();
@@ -191,41 +191,49 @@ namespace LemonadeStand_3DayStarter
         }
         private void DisplayMenu()
         {
-            Console.WriteLine("Please choose an option...\n\na)Change Recipe\nb)Buy Ingredients\nc)See Inventory\nd)Advance Day\n");
-            ConsoleKeyInfo userInput = Console.ReadKey();
-            if (userInput.KeyChar == 'a')
+            ConsoleKeyInfo userInput;
+            do
             {
-                BuildRecipe();
-            }
-            else if (userInput.KeyChar == 'b')
-            {
-                BuyIngredientsFromStore();
-            }
-            else if (userInput.KeyChar == 'c')
-            {
-                DisplayInventory();
-            }
-            else
-            {
-                for (int i = 0; i < howManyPlayers; i++)
+                Console.WriteLine("Please choose an option...\n\na)Change Recipe\nb)Buy Ingredients\nc)See Inventory\nd)Advance Day\n");
+                userInput = Console.ReadKey();
+                if (userInput.KeyChar == 'a')
                 {
-                    if (player[i].recipe.amountOfLemons<1 || player[i].recipe.amountOfSugarCubes < 1 || player[i].recipe.amountOfIceCubes < 1 || player[i].recipe.pricePerCup < .05) 
-                    {
-                        Console.Clear();
-                        Console.WriteLine($"Player {i+1}, you should setup your recipe first!\n");
-                        DisplayMenu();
-                    }
-                    
-                    if(player[i].inventory.lemons.Count < 1 || player[i].inventory.sugarCubes.Count < 1 || player[i].inventory.iceCubes.Count < 1 || player[i].inventory.cups.Count < 1)
-                    {
-                        Console.Clear();
-                        Console.WriteLine($"Player {i + 1}, you should buy some inventory first!\n");
-                        DisplayMenu();
-                    }
+                    BuildRecipe();
                 }
-                
-                Console.Clear();
-            }
+                else if (userInput.KeyChar == 'b')
+                {
+                    BuyIngredientsFromStore();
+                }
+                else if (userInput.KeyChar == 'c')
+                {
+                    DisplayInventory();
+                }
+                else if (userInput.KeyChar == 'd')
+                {
+                    for (int i = 0; i < howManyPlayers; i++)
+                    {
+                        if (player[i].recipe.amountOfLemons < 1 || player[i].recipe.amountOfSugarCubes < 1 || player[i].recipe.amountOfIceCubes < 1 || player[i].recipe.pricePerCup < .05)
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Player {i + 1}, you should setup your recipe first!\n");
+                            DisplayMenu();
+                        }
+
+                        if (player[i].inventory.lemons.Count < 1 || player[i].inventory.sugarCubes.Count < 1 || player[i].inventory.iceCubes.Count < 1 || player[i].inventory.cups.Count < 1)
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Player {i + 1}, you should buy some inventory first!\n");
+                            DisplayMenu();
+                        }
+                    }                    
+                    Console.Clear();
+                    break;
+                }
+                else
+                {
+                    Console.Clear();
+                }
+            } while (userInput.KeyChar != 'a' || userInput.KeyChar != 'b' || userInput.KeyChar != 'c' || userInput.KeyChar != 'd');
         }
         private void PrepareThePitcher()
         {
