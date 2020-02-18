@@ -294,7 +294,11 @@ namespace LemonadeStand_3DayStarter
                     {
                         continue;
                     }
-                    if (days[currentDay].customers[j].buyingPower > player[i].recipe.pricePerCup)
+                    if (
+                        (days[currentDay].customers[j].buyingPower > player[i].recipe.pricePerCup) &&
+                        (days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes < 2 || days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes > -2) &&
+                        (days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons < 2 || days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons > -2) &&
+                        (days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes < 2 || days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes > -2))
                     {
                         player[i].pitcher.PourACup();
                         Console.WriteLine($"{days[currentDay].customers[j].name} purchased a cup of lemonade!");

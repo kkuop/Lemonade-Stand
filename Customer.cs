@@ -12,6 +12,9 @@ namespace LemonadeStand_3DayStarter
         public string name;
         private List<string> names;
         public double buyingPower;
+        public int likesHowMuchLemon;
+        public int likesHowMuchSugar;
+        public int likesHowMuchIce;
         Random parentRandom;
         
         //constructor
@@ -20,6 +23,9 @@ namespace LemonadeStand_3DayStarter
             parentRandom = rng;
             name = GetName();
             buyingPower = CalculateBuyingPower();
+            likesHowMuchIce = DetermineHowMuchIceCustomerLikes();
+            likesHowMuchLemon = DetermineHowMuchLemonCustomerLikes();
+            likesHowMuchSugar = DetermineHowMuchSugarCustomerLikes();
         }
         //member methods
         private string GetName()
@@ -34,6 +40,54 @@ namespace LemonadeStand_3DayStarter
             double randomDouble = parentRandom.NextDouble();
             double result = randomInteger + randomDouble;
             return result;
+        }
+        private int DetermineHowMuchIceCustomerLikes()
+        {
+            int iceRandom = parentRandom.Next(1, 100);
+            if (iceRandom < 20) 
+            { 
+                return parentRandom.Next(1, 3);
+            }
+            else if (iceRandom >= 20 && iceRandom <= 80)
+            {
+                return parentRandom.Next(3, 8);
+            }
+            else
+            {
+                return parentRandom.Next(8, 11);
+            }
+        }
+        private int DetermineHowMuchLemonCustomerLikes()
+        {
+            int lemonRandom = parentRandom.Next(1, 100);
+            if (lemonRandom < 20)
+            {
+                return parentRandom.Next(1, 3);
+            }
+            else if (lemonRandom >= 20 && lemonRandom <= 80)
+            {
+                return parentRandom.Next(3, 8);
+            }
+            else
+            {
+                return parentRandom.Next(8, 11);
+            }
+        }
+        private int DetermineHowMuchSugarCustomerLikes()
+        {
+            int sugarRandom = parentRandom.Next(1, 100);
+            if (sugarRandom < 20)
+            {
+                return parentRandom.Next(1, 3);
+            }
+            else if (sugarRandom >=20 && sugarRandom <=80)
+            {
+                return parentRandom.Next(3, 8);
+            }
+            else
+            {
+                return parentRandom.Next(8, 11);
+            }
         }
     }
 }
