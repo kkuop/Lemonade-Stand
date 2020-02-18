@@ -57,6 +57,7 @@ namespace LemonadeStand_3DayStarter
                 DisplayReport();
                 ClearConsole();
                 ResetCupsSoldCounter();
+                PourOutUnsoldLemonade();
                 //Loop back through 
                 currentDay++;                
             }
@@ -75,21 +76,7 @@ namespace LemonadeStand_3DayStarter
         private void HowManyPlayers()
         {
             player = new List<Player>();
-            do
-            {
-                Console.Clear();
-                Console.Write("How many players?  (1-30)\n\n__");
-                try
-                {
-                    howManyPlayers = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("\nThat is not a number... try again!\n");
-
-                }
-            }
-            while (howManyPlayers < 1 || howManyPlayers > 30);
+            howManyPlayers = UserInterface.HowManyPlayers("How many players ? (1 - 30)\n\n__", 1, 20);
             for (int i = 0; i < howManyPlayers; i++)
             {
                 player.Add(new Player());
@@ -99,20 +86,7 @@ namespace LemonadeStand_3DayStarter
 
         private void ChooseDuration()
         {
-            do
-            {
-                Console.Clear();
-                Console.Write("How many days would you like the game to run?  (7-100)\n\n__");
-                try
-                {
-                    howManyDays = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("\nThat is not a valid option... try again!\n");
-
-                }
-            } while (howManyDays < 7 || howManyDays > 100);
+            howManyDays = UserInterface.ChooseDuration("How many days would you like the game to run?  (7-100)\n\n__", 7, 30);
         }
 
         private void GenerateListOfDays()
@@ -128,8 +102,7 @@ namespace LemonadeStand_3DayStarter
 
         private void DisplayWeatherInformation()
         {
-            Console.WriteLine($"Today's forecast is: {days[currentDay].weather.condition}\n\nThe high temperature will be: {days[currentDay].weather.temperature} ");
-
+            UserInterface.DisplayWeatherInformation(days[currentDay].weather.condition, days[currentDay].weather.temperature);
         }
 
         private void DisplayInventory()
@@ -138,9 +111,7 @@ namespace LemonadeStand_3DayStarter
             //that allows for extension of the number of players without modifying the code
             for (int i = 0; i < howManyPlayers; i++)
             {
-                Console.Clear();
-                Console.WriteLine($"Player {i + 1}, here is your current inventory...\n");
-                Console.WriteLine($"Lemons: {player[i].inventory.lemons.Count}\nSugar Cubes: {player[i].inventory.iceCubes.Count}\nIce Cubes: {player[i].inventory.iceCubes.Count}\nCups: {player[i].inventory.cups.Count}\n\nWallet: {player[i].wallet.Money}");
+                UserInterface.DisplayInventory(i + 1, player[i].inventory.lemons.Count, player[i].inventory.sugarCubes.Count, player[i].inventory.iceCubes.Count, player[i].inventory.cups.Count, player[i].wallet.Money);
                 ClearConsole();
             }
             Console.Clear();
@@ -238,6 +209,7 @@ namespace LemonadeStand_3DayStarter
 
         private void PrepareThePitcher()
         {
+            //I set userInput to -1 so the while loop continues if the user enters a letter since 0 is a valid input
             int userInput = -1;
             int maxLemons;
             int maxSugars;
@@ -258,9 +230,9 @@ namespace LemonadeStand_3DayStarter
                 else
                 {
                     maxPitchers = maxIce;
+
                 }
-                //fix the following line
-                
+                player[i].maxPitchers = maxPitchers;
                 do
                 {
                     Console.Clear();
@@ -286,7 +258,7 @@ namespace LemonadeStand_3DayStarter
 
         private void SetPitchersBeforeValue()
         {
-            //make two vars to track count of pitchers before and after
+            //set the pitchersBefore variable to the count of the list
             for (int i = 0; i < howManyPlayers; i++)
             {
                     player[i].pitchersBefore = player[i].listOfPitchers.Count;
@@ -299,7 +271,6 @@ namespace LemonadeStand_3DayStarter
             {
                 for (int j = 0; j < days[currentDay].customers.Count; j++)
                 {
-                    //fix when the list of pitchers is emptied
                     if (player[i].listOfPitchers.Count < 1 || player[i].inventory.cups.Count < 1)
                     {
                         continue;
@@ -331,7 +302,13 @@ namespace LemonadeStand_3DayStarter
             {
                 try
                 {
+                    //considers the possiblity of selling a partial pitcher
                     pitchersUsed = (player[i].cupsSoldCounter / 8) + 1;
+                    //handles the exception that would arise from selling out
+                    if (pitchersUsed > player[i].maxPitchers)
+                    {
+                        pitchersUsed = player[i].maxPitchers;
+                    }
                 }
                 catch(Exception)
                 {
@@ -375,6 +352,23 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < howManyPlayers; i++)
             {
                 player[i].cupsSoldCounter = 0;
+            }
+        }
+        private void PourOutUnsoldLemonade()
+        {
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                if(player[i].listOfPitchers.Count<1)
+                {
+                    break;
+                }
+                else
+                {
+                    for (int j = 0; j < player[i].listOfPitchers.Count; j++)
+                    {
+                        player[i].listOfPitchers.RemoveAt(0);
+                    }
+                }
             }
         }
     }

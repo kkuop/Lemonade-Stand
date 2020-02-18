@@ -21,6 +21,55 @@ namespace LemonadeStand_3DayStarter
             Console.WriteLine("How to play:\n");
             Console.WriteLine("You are in charge of a lemonade stand. Each day, \nyou will control the recipe, how many glasses\nyou make, and how much to charge for each one. \nHowever, there will be random weather patterns \nthat may affect your sales each day. Make the \nmost money at the end and you win!");
         }
+        public static int HowManyPlayers(string prompt, int min, int max)
+        {
+            int userInput = 0;
+            do
+            {
+                Console.Clear();
+                Console.Write(prompt);
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\nThat is not a number... try again!\n");
+
+                }
+            }
+            while (userInput < min || userInput > max);
+            return userInput;
+        }
+        public static int ChooseDuration(string prompt, int min, int max)
+        {
+            int userInput = 0;
+            do
+            {
+                Console.Clear();
+                Console.Write(prompt);
+                try
+                {
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\nThat is not a valid option... try again!\n");
+
+                }
+            } while (userInput < min || userInput > max);
+            return userInput;
+        }
+        public static void DisplayWeatherInformation(string condition, int temp)
+        {
+            Console.WriteLine($"Today's forecast is: {condition}\n\nThe high temperature will be: {temp} ");
+        }
+        public static void DisplayInventory(int player, int lemonCount, int sugarCount, int iceCount, int cupsCount, double money)
+        {
+            Console.Clear();
+            Console.WriteLine($"Player {player}, here is your current inventory...\n");
+            Console.WriteLine($"Lemons: {lemonCount}\nSugar Cubes: {sugarCount}\nIce Cubes: {iceCount}\nCups: {cupsCount}\n\nWallet: {money}");
+        }
         public static int GetIntUserInput(string prompt, int min, int max)
         {
             int userInput = 0;

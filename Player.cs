@@ -16,6 +16,7 @@ namespace LemonadeStand_3DayStarter
         public List<Pitcher> listOfPitchers;
         public int pitchersBefore;
         public int cupsSoldCounter;
+        public int maxPitchers;
 
         // constructor (SPAWNER)
         public Player()
