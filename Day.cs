@@ -11,11 +11,11 @@ namespace LemonadeStand_3DayStarter
         //member vars
         public Weather weather;
         public List<Customer> customers;
-        Random random;
+        
         //constructor
         public Day()
         {
-            random = new Random();
+            
             weather = new Weather();
             customers = DetermineNumberOfCustomers();
         }
@@ -26,16 +26,16 @@ namespace LemonadeStand_3DayStarter
             customers = new List<Customer>();
             if (weather.condition == "Hot and Dry")
             {
-                amountOfCustomers = random.Next(30, 50);
+                amountOfCustomers = new Random().Next(30, 50);
     
             }
             else if (weather.condition == "Mostly Sunny" )
             {
-                amountOfCustomers = random.Next(10, 35);
+                amountOfCustomers = new Random().Next(10, 35);
             }
             else
             {
-                amountOfCustomers = random.Next(0, 15);
+                amountOfCustomers = new Random().Next(0, 15);
 
             }
             for (int i = 0; i < amountOfCustomers; i++)

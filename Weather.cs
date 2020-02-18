@@ -11,21 +11,10 @@ namespace LemonadeStand_3DayStarter
         //member vars
         public string condition;
         public int temperature;
-        int lowRangeForBadConditions;
-        int highRangeForBadConditions;
-        int lowRangeForGoodConditions;
-        int highRangeForGoodConditions;
-        int lowRangeForMediumConditions;
-        int highRangeForMediumConditions;
+
         //constructor
         public Weather()
         {
-            lowRangeForBadConditions = 45;
-            highRangeForBadConditions = 65;
-            lowRangeForMediumConditions = 65;
-            highRangeForMediumConditions = 85;
-            lowRangeForGoodConditions = 75;
-            highRangeForGoodConditions = 95;
             condition = GenerateRandomCondition();
             temperature = GenerateRandomTemperature();
         }
@@ -50,15 +39,15 @@ namespace LemonadeStand_3DayStarter
         {
             if(condition=="Thunderstorms")
             {                
-                return new Random().Next(lowRangeForBadConditions, highRangeForBadConditions);
+                return new Random().Next(45, 65);
             }
             else if (condition == "Mostly Sunny")
             {
-                return new Random().Next(lowRangeForMediumConditions, highRangeForMediumConditions);
+                return new Random().Next(65, 80);
             }
             else
             {
-                return new Random().Next(lowRangeForGoodConditions, highRangeForGoodConditions);
+                return new Random().Next(75, 99);
             }            
         }
     }
