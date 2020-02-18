@@ -12,12 +12,11 @@ namespace LemonadeStand_3DayStarter
         public string name;
         private List<string> names;
         public double buyingPower;
-        Random random;
+        Random random = new Random();
         
         //constructor
         public Customer()
         {
-            random = new Random();
             name = GetName();
             buyingPower = CalculateBuyingPower();
         }
@@ -26,8 +25,7 @@ namespace LemonadeStand_3DayStarter
         {
             names = new List<string> { "Beckie ", "Casimira  ", "Myesha  ", "Monika  ", "Una  ", "Cesar  ", "Renae  ", "Aleisha  ", "Randy  ", "Jordon  ", "Geraldo  ", "Normand  ", "Marilu  ", "Madeline  ", "Francesco  ", "Hulda  ", "Carolyn  ", "Marline  ", "Anderson  ", "Marquitta  ", "Lupita  ", "Louella  ", "Lottie  ", "Alfonzo  ", "Yanira  ", "Rona  ", "Newton  ", "Latina  ", "Vicente  ", "Migdalia  ", "Winfred  ", "Somer  ", "Raphael  ", "Shakira  ", "Ghislaine  ", "Fiona  ", "Deanna  ", "Eldora  ", "Cinda  ", "Desmond  ", "Mistie  ", "Lashaun  ", "Dusty  ", "Tanja  ", "Christinia  ", "Rhea  ", "Marg  ", "Ashanti  ", "Filiberto  ", "Harley  " };
             string chosenOne = names[random.Next(0,50)];
-            return chosenOne;
-            
+            return chosenOne;            
         }
         private double CalculateBuyingPower ()
         {

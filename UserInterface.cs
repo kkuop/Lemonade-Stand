@@ -27,6 +27,24 @@ namespace LemonadeStand_3DayStarter
             return userInput;
 
         }
+        public static double GetDoubleUserInput(string prompt, double min, double max)
+        {
+            double userInput = 0;
+            do
+            {
+
+                Console.Write(prompt);
+                try
+                {
+                    userInput = Convert.ToDouble(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("That was not valid input... try again!");
+                }
+            } while (userInput < min || userInput > max);
+            return userInput;
+        }
         public static int GetNumberOfItems(string itemsToGet)
         {
             bool userInputIsAnInteger = false;

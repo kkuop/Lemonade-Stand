@@ -39,57 +39,20 @@ namespace LemonadeStand_3DayStarter
         }
         public int HowManySugars()
         {
-            int userInput = 0;
-            do
-            {
-                ClearCurrentConsoleLine();
-                Console.Write("How many sugar cubes should your pitcher contain?  (1-10)\n\n__");
-                try
-                {
-                    userInput = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("That was not valid input... try again!");
-                }
-            } while (userInput < 1 || userInput > 10);
+            int userInput = UserInterface.GetIntUserInput("How many sugar cubes should your pitcher contain ? (1 - 10)\n\n__",1,10);
+            amountOfSugarCubes = userInput;
             return userInput;
         }
         public int HowManyIceCubes()
         {
-            int userInput = 0;
-            
-            do
-            {
-                ClearCurrentConsoleLine();
-                Console.Write("How many ice cubes should your pitcher contain?  (1-10)\n\n__");
-                try
-                {
-                    userInput = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("That was not valid input... try again!");
-                }
-            } while (userInput < 1 || userInput > 10);
+            int userInput = UserInterface.GetIntUserInput("How many ice cubes should your pitcher contain?  (1-10)\n\n__",1,10);
+            amountOfIceCubes = userInput;
             return userInput;
         }
         public double HowMuchPerCup()
         {
-            double userInput = 0;
-            do
-            {
-                ClearCurrentConsoleLine();
-                Console.Write("How much would you like to charge per cup?  (0.05-10)\n\n__");
-                try
-                {
-                    userInput = Convert.ToDouble(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("That was not valid input... try again!");
-                }
-            } while (userInput < .05 || userInput > 10);
+            double userInput = UserInterface.GetDoubleUserInput("How much would you like to charge per cup? (0.05-10)\n\n__",1,10);
+            pricePerCup = userInput;
             return userInput;
         }
     }
