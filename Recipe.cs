@@ -22,15 +22,7 @@ namespace LemonadeStand_3DayStarter
             pricePerCup = 0;
             }
         //member methods
-        private void ClearCurrentConsoleLine()
-        {
-            int currentCursorLine = Console.CursorTop - 1;
-            Console.SetCursorPosition(0, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, Console.CursorTop - 1);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, currentCursorLine);
-        }
+        
         public int HowManyLemons()
         {
             int userInput = UserInterface.GetIntUserInput("How many lemons should your pitcher contain ? (1 - 10)\n\n__", 1, 10);
