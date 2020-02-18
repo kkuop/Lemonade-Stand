@@ -13,6 +13,7 @@ namespace LemonadeStand_3DayStarter
         public Wallet wallet;
         public Pitcher pitcher;
         public Recipe recipe;
+        public bool playerDoesNotHaveEnoughSupply;
 
         // constructor (SPAWNER)
         public Player()

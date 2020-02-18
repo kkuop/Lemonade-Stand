@@ -13,6 +13,7 @@ namespace LemonadeStand_3DayStarter
         int currentDay;
         Store store;
         Random random;
+        
         //constructor
         public Game()
         {
@@ -123,7 +124,7 @@ namespace LemonadeStand_3DayStarter
             days = new List<Day>();
             for (int i = 0; i < howManyDays; i++)
             {
-                days.Add(new Day());
+                days.Add(new Day(random));
 
             }
             currentDay = 0;
@@ -240,12 +241,17 @@ namespace LemonadeStand_3DayStarter
             int userInput = 0;
             for (int i = 0; i < player.Count; i++)
             {
-                if ((player[i].recipe.amountOfLemons > player[i].inventory.lemons.Count) || (player[i].recipe.amountOfSugarCubes > player[i].inventory.sugarCubes.Count) || (player[i].recipe.amountOfIceCubes > player[i].inventory.iceCubes.Count))
+                if ((player[i].recipe.amountOfLemons >= player[i].inventory.lemons.Count) || (player[i].recipe.amountOfSugarCubes >= player[i].inventory.sugarCubes.Count) || (player[i].recipe.amountOfIceCubes >= player[i].inventory.iceCubes.Count))
                 {
+                    player[i].playerDoesNotHaveEnoughSupply = true;
                     Console.Clear();
                     Console.WriteLine($"Player {i + 1}, you do not have enough supply to make the pitcher of lemonade!\n\nYou will sell 0 cups of lemonade this round.");
                     ClearConsole();
                     continue;
+                }
+                else
+                {
+                    player[i].playerDoesNotHaveEnoughSupply = false;
                 }
                 Console.Write($"Player {i + 1}, how many cups of lemonade would you like to make? You have {player[i].inventory.cups.Count} available...\n__");
                 do
@@ -309,19 +315,23 @@ namespace LemonadeStand_3DayStarter
 
         private void SubtractWhatWasUsedFromInventory()
         {
+            
             for (int i = 0; i < howManyPlayers; i++)
             {
-                for (int j = 0; j < player[i].recipe.amountOfLemons; j++)
+                if (player[i].playerDoesNotHaveEnoughSupply == false)
                 {
-                    player[i].inventory.RemoveLemonsFromInventory();
-                }
-                for (int j = 0; j < player[i].recipe.amountOfSugarCubes; j++)
-                {
-                    player[i].inventory.RemoveSugarCubesFromInventory();
-                }
-                for (int j = 0; j < player[i].recipe.amountOfIceCubes; j++)
-                {
-                    player[i].inventory.RemoveIceCubesFromInventory();
+                    for (int j = 0; j < player[i].recipe.amountOfLemons; j++)
+                    {
+                        player[i].inventory.RemoveLemonsFromInventory();
+                    }
+                    for (int j = 0; j < player[i].recipe.amountOfSugarCubes; j++)
+                    {
+                        player[i].inventory.RemoveSugarCubesFromInventory();
+                    }
+                    for (int j = 0; j < player[i].recipe.amountOfIceCubes; j++)
+                    {
+                        player[i].inventory.RemoveIceCubesFromInventory();
+                    }
                 }
             }
         }

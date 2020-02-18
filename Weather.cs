@@ -11,17 +11,19 @@ namespace LemonadeStand_3DayStarter
         //member vars
         public string condition;
         public int temperature;
+        Random parentRandom;
 
         //constructor
-        public Weather()
+        public Weather(Random rng)
         {
+            parentRandom = rng;
             condition = GenerateRandomCondition();
             temperature = GenerateRandomTemperature();
         }
         //member methods
         private string GenerateRandomCondition()
         {
-            int randomValue = new Random().Next(1, 30);
+            int randomValue = parentRandom.Next(1, 30);
             if (randomValue <= 5)
             {
                 return "Thunderstorms";
@@ -39,15 +41,15 @@ namespace LemonadeStand_3DayStarter
         {
             if(condition=="Thunderstorms")
             {                
-                return new Random().Next(45, 65);
+                return parentRandom.Next(45, 65);
             }
             else if (condition == "Mostly Sunny")
             {
-                return new Random().Next(65, 80);
+                return parentRandom.Next(65, 80);
             }
             else
             {
-                return new Random().Next(75, 99);
+                return parentRandom.Next(75, 99);
             }            
         }
     }
