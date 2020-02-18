@@ -32,6 +32,8 @@ namespace LemonadeStand_3DayStarter
             //Choose duration 
             ChooseDuration();
             GenerateListOfDays();
+            //Here is a case for the Open/Closed principle of SOLID
+            //this while loop is open for extension but closed to modification
             while (currentDay < howManyDays)
             {
                 Console.Clear();
@@ -82,7 +84,7 @@ namespace LemonadeStand_3DayStarter
             do
             {
                 Console.Clear();
-                Console.Write("How many players?  (No more than 30)\n\n__");
+                Console.Write("How many players?  (1-30)\n\n__");
                 try
                 {
                     howManyPlayers = Convert.ToInt32(Console.ReadLine());
@@ -106,7 +108,7 @@ namespace LemonadeStand_3DayStarter
             do
             {
                 Console.Clear();
-                Console.Write("How many days would you like the game to run?\n\n(At least 7 and no more than 100)\n\n__");
+                Console.Write("How many days would you like the game to run?  (7-100)\n\n__");
                 try
                 {
                     howManyDays = Convert.ToInt32(Console.ReadLine());
@@ -138,6 +140,8 @@ namespace LemonadeStand_3DayStarter
 
         private void DisplayInventory()
         {
+            //Another SOLID principle... each of the methods will have a for loop
+            //that allows for extension of the number of players without modifying the code
             for (int i = 0; i < howManyPlayers; i++)
             {
                 Console.Clear();
@@ -241,7 +245,7 @@ namespace LemonadeStand_3DayStarter
             int userInput = 0;
             for (int i = 0; i < player.Count; i++)
             {
-                if ((player[i].recipe.amountOfLemons >= player[i].inventory.lemons.Count) || (player[i].recipe.amountOfSugarCubes >= player[i].inventory.sugarCubes.Count) || (player[i].recipe.amountOfIceCubes >= player[i].inventory.iceCubes.Count))
+                if ((player[i].recipe.amountOfLemons > player[i].inventory.lemons.Count) || (player[i].recipe.amountOfSugarCubes > player[i].inventory.sugarCubes.Count) || (player[i].recipe.amountOfIceCubes > player[i].inventory.iceCubes.Count))
                 {
                     player[i].playerDoesNotHaveEnoughSupply = true;
                     Console.Clear();
@@ -315,20 +319,22 @@ namespace LemonadeStand_3DayStarter
 
         private void SubtractWhatWasUsedFromInventory()
         {
+            int pitchersUsed;
             
             for (int i = 0; i < howManyPlayers; i++)
             {
+                pitchersUsed = (player[i].pitcher.cupsSold / player[i].pitcher.cupsPerPitcher) + 1;
                 if (player[i].playerDoesNotHaveEnoughSupply == false)
                 {
-                    for (int j = 0; j < player[i].recipe.amountOfLemons; j++)
+                    for (int j = 0; j < player[i].recipe.amountOfLemons * pitchersUsed; j++)
                     {
                         player[i].inventory.RemoveLemonsFromInventory();
                     }
-                    for (int j = 0; j < player[i].recipe.amountOfSugarCubes; j++)
+                    for (int j = 0; j < player[i].recipe.amountOfSugarCubes * pitchersUsed; j++)
                     {
                         player[i].inventory.RemoveSugarCubesFromInventory();
                     }
-                    for (int j = 0; j < player[i].recipe.amountOfIceCubes; j++)
+                    for (int j = 0; j < player[i].recipe.amountOfIceCubes * pitchersUsed; j++)
                     {
                         player[i].inventory.RemoveIceCubesFromInventory();
                     }

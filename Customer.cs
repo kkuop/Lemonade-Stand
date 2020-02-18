@@ -30,7 +30,7 @@ namespace LemonadeStand_3DayStarter
         }
         private double CalculateBuyingPower ()
         {
-            int randomInteger = parentRandom.Next(0,10);
+            int randomInteger = parentRandom.Next(0,9);
             double randomDouble = parentRandom.NextDouble();
             double result = randomInteger + randomDouble;
             return result;

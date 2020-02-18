@@ -9,6 +9,7 @@ namespace LemonadeStand_3DayStarter
     class Pitcher
     {
         //member vars
+        public int cupsPerPitcher;
         public int cupsLeftInPitcher;
         public int cupsBefore;
         public int cupsSold;
@@ -16,6 +17,7 @@ namespace LemonadeStand_3DayStarter
         public Pitcher()
         {
             cupsLeftInPitcher = 0;
+            cupsPerPitcher = 8;
         }
         //member methods
         public void PourACup()
