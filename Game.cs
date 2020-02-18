@@ -49,9 +49,7 @@ namespace LemonadeStand_3DayStarter
                 //Set the cupsBefore var
                 SetPitchersBeforeValue();
                 //Open for business
-                OpenForBusiness();
-                //Set cupsSold equals to cupsBefore minus cupsLeftInPitcher
-                RemoveCupsFromInventory();
+                OpenForBusiness();                               
                 //Deduct what was used
                 SubtractWhatWasUsedFromInventory();
                 AddProfitsToWallet();
@@ -66,17 +64,12 @@ namespace LemonadeStand_3DayStarter
 
         private void ClearConsole()
         {
-            Console.WriteLine("\nPress any key to continue...");
-            Console.ReadKey();
-            Console.Clear();
+            UserInterface.ClearConsole();
         }
 
         private void DisplayRules()
         {
-            Console.WriteLine("Welcome to Lemonade Stand!");
-            ClearConsole();
-            Console.WriteLine("How to play:\n");
-            Console.WriteLine("You are in charge of a lemonade stand. Each day, \nyou will control the recipe, how many glasses\nyou make, and how much to charge for each one. \nHowever, there will be random weather patterns \nthat may affect your sales each day. Make the \nmost money at the end and you win!");
+            UserInterface.DisplayRules();
         }
 
         private void HowManyPlayers()
@@ -161,16 +154,16 @@ namespace LemonadeStand_3DayStarter
             for (int i = 0; i < player.Count; i++)
             {
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n\nYour recipe calls for: {player[i].recipe.amountOfLemons}\n\nCurrent value: {player[i].inventory.lemons.Count}\n\nWallet: {player[i].wallet.Money}\n\nPrice per lemon: {store.pricePerLemon}\n");
                 store.SellLemons(player[i]);
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n\nYour recipe calls for: {player[i].recipe.amountOfSugarCubes}\n\nCurrent value: {player[i].inventory.sugarCubes.Count}\n\nWallet: {player[i].wallet.Money}\n\nPrice per sugar cube: {store.pricePerSugarCube}\n");
                 store.SellSugarCubes(player[i]);
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n\nYour recipe calls for: {player[i].recipe.amountOfIceCubes}\n\nCurrent value: {player[i].inventory.iceCubes.Count}\n\nWallet: {player[i].wallet.Money}\n\nPrice per ice cube: {store.pricePerIceCube}\n");
                 store.SellIceCubes(player[i]);
                 Console.Clear();
-                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n");
+                Console.WriteLine($"\nPlayer {i + 1}, it's time to stock your inventory...\n\nCurrent value: {player[i].inventory.cups.Count}\n\nWallet:{player[i].wallet.Money}\n\nPrice per cup: {store.pricePerCup}\n");
                 store.SellCups(player[i]);
             }
             Console.Clear();
@@ -206,6 +199,7 @@ namespace LemonadeStand_3DayStarter
             ConsoleKeyInfo userInput;
             do
             {
+                Console.WriteLine($"Todays forecast: {days[currentDay].weather.condition} | {days[currentDay].weather.temperature}\n");
                 Console.WriteLine("Please choose an option...\n\na)Change Recipe\nb)Buy Ingredients\nc)See Inventory\nd)Advance Day\n");
                 userInput = Console.ReadKey();
                 if (userInput.KeyChar == 'a')
@@ -306,7 +300,7 @@ namespace LemonadeStand_3DayStarter
                 for (int j = 0; j < days[currentDay].customers.Count; j++)
                 {
                     //fix when the list of pitchers is emptied
-                    if (player[i].listOfPitchers.Count < 1)
+                    if (player[i].listOfPitchers.Count < 1 || player[i].inventory.cups.Count < 1)
                     {
                         continue;
                     }
@@ -318,6 +312,7 @@ namespace LemonadeStand_3DayStarter
                     {
                         player[i].listOfPitchers[0].PourACup();
                         player[i].cupsSoldCounter++;
+                        player[i].inventory.cups.RemoveAt(0);
                         Console.WriteLine($"{days[currentDay].customers[j].name} purchased a cup of lemonade!");
                         if(player[i].listOfPitchers[0].cupsLeftInPitcher<1)
                         {
@@ -325,20 +320,6 @@ namespace LemonadeStand_3DayStarter
                         }
                     }
                 }
-            }
-        }
-
-        private void RemoveCupsFromInventory()
-        {
-            //when for loop is done, update the cupsSold to reflect how much was sold
-            for (int i = 0; i < howManyPlayers; i++)
-            {
-                
-                for (int j = 0; j < player[i].cupsSoldCounter; j++)
-                {
-                    player[i].inventory.cups.RemoveAt(0);
-                }
-
             }
         }
 
@@ -350,7 +331,7 @@ namespace LemonadeStand_3DayStarter
             {
                 try
                 {
-                    pitchersUsed = (player[i].cupsSoldCounter / player[i].pitchersBefore) + 1;
+                    pitchersUsed = (player[i].cupsSoldCounter / 8) + 1;
                 }
                 catch(Exception)
                 {
