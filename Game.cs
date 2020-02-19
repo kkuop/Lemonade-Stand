@@ -286,6 +286,7 @@ namespace LemonadeStand_3DayStarter
 
         private void OpenForBusiness()
         {
+            
             for (int i = 0; i < howManyPlayers; i++)
             {
                 for (int j = 0; j < days[currentDay].customers.Count; j++)
@@ -296,9 +297,9 @@ namespace LemonadeStand_3DayStarter
                     }
                     if (
                         (days[currentDay].customers[j].buyingPower > player[i].recipe.pricePerCup) &&
-                        (days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes < 2 || days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes > -2) &&
-                        (days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons < 2 || days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons > -2) &&
-                        (days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes < 2 || days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes > -2))
+                        (days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes > random.Next(-1,-4)) &&
+                        (days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons > random.Next(-1,-4)) &&
+                        (days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes > random.Next(-1, -4)))
                     {
                         player[i].listOfPitchers[0].PourACup();
                         player[i].cupsSoldCounter++;
