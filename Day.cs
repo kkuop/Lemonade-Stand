@@ -10,7 +10,6 @@ namespace LemonadeStand_3DayStarter
     {
         //member vars
         public Weather weather;
-        //public WeatherAPI weatherReal;
         public List<Customer> customers;
         Random parentRandom;
         private int dayCount;
