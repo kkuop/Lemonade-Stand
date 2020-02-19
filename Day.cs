@@ -10,7 +10,7 @@ namespace LemonadeStand_3DayStarter
     {
         //member vars
         public Weather weather;
-        public WeatherData weatherReal;
+        //public WeatherAPI weatherReal;
         public List<Customer> customers;
         Random parentRandom;
         private int dayCount;
@@ -22,8 +22,8 @@ namespace LemonadeStand_3DayStarter
             this.dayCount = dayCounterForWeather;            
             if (dayCounterForWeather <= 5)
             {                
-                weatherReal = new WeatherData(city, dayCounterForWeather);
-                weatherReal.CheckWeather();               
+                weather = new Weather(city, dayCounterForWeather);
+                weather.CheckWeather();               
             }
             else
             {
@@ -38,11 +38,11 @@ namespace LemonadeStand_3DayStarter
             customers = new List<Customer>();
             if (dayCount <= 5)
             {
-                if (Convert.ToDouble(weatherReal.HighTemperature) > 75)
+                if (Convert.ToDouble(weather.HighTemperature) > 75)
                 {
                     amountOfCustomers = parentRandom.Next(30, 50);
                 }
-                else if (Convert.ToDouble(weatherReal.HighTemperature) > 65)
+                else if (Convert.ToDouble(weather.HighTemperature) > 65)
                 {
                     amountOfCustomers = parentRandom.Next(10, 35);
                 }

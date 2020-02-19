@@ -23,24 +23,29 @@ namespace LemonadeStand_3DayStarter
         public void StartGame()
         {
             currentDay = 0;
-            //Here is the best case for single responsibility (each method has its own responsibility as we run through the entire game)
+            //Here is the best case for single responsibility (each method 
+            //has its own responsibility as we run through the entire game)
             //Display rules
             DisplayRules();
             ClearConsole();
-            //How many people will be playing?
+            //User input to determine how many players
             HowManyPlayers();
             //Choose duration 
             ChooseDuration();
+            //Generate the days which will also generate the customers and weather
             GenerateListOfDays();
             //Here is a case for the Open/Closed principle of SOLID
             //this while loop is open for extension and closed to modification
+            //we can extend how long it runs with user input without needing
+            //to change the code
             while (currentDay < howManyDays)
             {
                 Console.Clear();
                 //Display menu
                 DisplayMenu();
                 Console.Clear();
-                //Weather
+                //Weather will display in real time for the first 5 days
+                //due to limitations with the free API
                 DisplayWeatherInformation();
                 ClearConsole();
                 //How many pitchers to make
@@ -113,7 +118,7 @@ namespace LemonadeStand_3DayStarter
             }
             else
             {
-                UserInterface.DisplayRealWeatherInformation(days[currentDay].weatherReal.City, days[currentDay].weatherReal.Condition, days[currentDay].weatherReal.Temperature, days[currentDay].weatherReal.HighTemperature, days[currentDay].weatherReal.Precipitation);
+                UserInterface.DisplayRealWeatherInformation(days[currentDay].weather.City, days[currentDay].weather.Condition, days[currentDay].weather.Temperature, days[currentDay].weather.HighTemperature, days[currentDay].weather.Precipitation);
             }
         }
 
@@ -184,7 +189,7 @@ namespace LemonadeStand_3DayStarter
             {
                 if (currentDay <=5)
                 {
-                    Console.WriteLine($"Todays forecast: Day {currentDay+1} | {days[currentDay].weatherReal.Condition} | {days[currentDay].weatherReal.HighTemperature}");
+                    Console.WriteLine($"Todays forecast: Day {currentDay+1} | {days[currentDay].weather.Condition} | {days[currentDay].weather.HighTemperature}");
                 }
                 else
                 {
@@ -297,9 +302,9 @@ namespace LemonadeStand_3DayStarter
                     }
                     if (
                         (days[currentDay].customers[j].buyingPower > player[i].recipe.pricePerCup) &&
-                        (days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes > random.Next(-1,-4)) &&
-                        (days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons > random.Next(-1,-4)) &&
-                        (days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes > random.Next(-1, -4)))
+                        (days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchIce - player[i].recipe.amountOfIceCubes > random.Next(-4,-1)) &&
+                        (days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchLemon - player[i].recipe.amountOfLemons > random.Next(-4,-1)) &&
+                        (days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes < random.Next(1,4) || days[currentDay].customers[j].likesHowMuchSugar - player[i].recipe.amountOfSugarCubes > random.Next(-4, -1)))
                     {
                         player[i].listOfPitchers[0].PourACup();
                         player[i].cupsSoldCounter++;
