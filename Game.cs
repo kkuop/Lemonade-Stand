@@ -61,6 +61,8 @@ namespace LemonadeStand_3DayStarter
                 //Loop back through 
                 currentDay++;                
             }
+            //Compare players
+            DetermineWinner();
         }
 
         private void ClearConsole()
@@ -387,6 +389,26 @@ namespace LemonadeStand_3DayStarter
                     }
                 }
             }
+        }
+        private void DetermineWinner()
+        {
+            int winner = 0;
+
+            for (int i = 0; i < howManyPlayers; i++)
+            {
+                for (int j = 0; j < howManyPlayers; j++)
+                {
+                    if (player[i].wallet.Money < player[j].wallet.Money)
+                    {
+                        i = j;
+                    }
+                    else
+                    {
+                        winner = i;
+                    }                    
+                }                
+            }
+            Console.WriteLine($"The winner is Player {winner+1}!");
         }
     }
 }
