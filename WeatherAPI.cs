@@ -10,13 +10,6 @@ namespace LemonadeStand_3DayStarter
 {
     class WeatherAPI
     {
-        //member variables
-        //public string City { get; set; }
-        //public string Temperature { get; set; }
-        //public string HighTemperature { get; set; }
-        //public string Condition { get; set; }
-        //public string Precipitation { get; set; }
-
         public int currentDay;
         private string currentURL;
         private XmlDocument xmlDocument;
@@ -30,13 +23,7 @@ namespace LemonadeStand_3DayStarter
             xmlDocument = GetXml(currentURL);
         }
         //member methods
-        //public void CheckWeather()
-        //{
-        //    Temperature = GetCurrentTemperature(currentDay);
-        //    HighTemperature = GetHighTemperature(currentDay);
-        //    Condition = GetDescription(currentDay);
-        //    Precipitation = GetPrecipitation(currentDay);
-        //}
+
         private void SetCurrentURL(string location)
         {
             currentURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + location + "&mode=xml&units=imperial&appid=90362ad8206360c9c86bbe50cf3a19b4";
