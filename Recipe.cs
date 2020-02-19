@@ -43,7 +43,7 @@ namespace LemonadeStand_3DayStarter
         }
         public double HowMuchPerCup()
         {
-            double userInput = UserInterface.GetDoubleUserInput("How much would you like to charge per cup? (0.05-10)\n\n__",1,10);
+            double userInput = UserInterface.GetDoubleUserInput("How much would you like to charge per cup? (0.05-5.00)\n\n__",.05,5);
             pricePerCup = userInput;
             return userInput;
         }

@@ -33,7 +33,7 @@ namespace LemonadeStand_3DayStarter
             ChooseDuration();
             GenerateListOfDays();
             //Here is a case for the Open/Closed principle of SOLID
-            //this while loop is open for extension but closed to modification
+            //this while loop is open for extension and closed to modification
             while (currentDay < howManyDays)
             {
                 Console.Clear();
@@ -170,7 +170,7 @@ namespace LemonadeStand_3DayStarter
             ConsoleKeyInfo userInput;
             do
             {
-                Console.WriteLine($"Todays forecast: {days[currentDay].weather.condition} | {days[currentDay].weather.temperature}\n");
+                Console.WriteLine($"Todays forecast:  Day {currentDay+1} | {days[currentDay].weather.condition} | {days[currentDay].weather.temperature}\n");
                 Console.WriteLine("Please choose an option...\n\na)Change Recipe\nb)Buy Ingredients\nc)See Inventory\nd)Advance Day\n");
                 userInput = Console.ReadKey();
                 if (userInput.KeyChar == 'a')
