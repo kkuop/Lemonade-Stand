@@ -23,7 +23,7 @@ namespace LemonadeStand_3DayStarter
             if (dayCounterForWeather <= 5)
             {                
                 weatherReal = new WeatherData(city, dayCounterForWeather);
-                weatherReal.CheckWeather();
+                weatherReal.CheckWeather();               
             }
             else
             {
