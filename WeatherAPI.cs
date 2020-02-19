@@ -13,15 +13,18 @@ namespace LemonadeStand_3DayStarter
     {
         //member vars
         private string currentURL;
+        private XmlDocument xmlDocument;
+
         //constructor
         public WeatherAPI(string city)
         {
-
+            SetCurrentURL(city);
+            xmlDocument = GetXml(currentURL);
         }
         //member methods
         private void SetCurrentURL(string location)
         {
-            currentURL = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&mode=xml&units=imperial&appid=90362ad8206360c9c86bbe50cf3a19b4";
+            currentURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + location + "&mode=xml&units=imperial&appid=90362ad8206360c9c86bbe50cf3a19b4";
         }
         private XmlDocument GetXml(string currentURL)
         {
@@ -32,6 +35,22 @@ namespace LemonadeStand_3DayStarter
                 xmlDocument.LoadXml(xmlContent);
                 return xmlDocument;
             }
+        }
+        public string GetTemperature()
+        {
+            XmlNode xmlNode = xmlDocument.SelectSingleNode("//temperature");
+            XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
+            string temperature = xmlAttribute.Value;
+            return temperature;
+        }
+        public string GetDescription()
+        {
+            XmlNode xmlNode = xmlDocument.SelectSingleNode("//weather");
+            XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
+            XmlNode xmlNode1 = xmlDocument.SelectSingleNode("//speed");
+            XmlAttribute xmlAttribute1 = xmlNode1.Attributes["name"];
+            string description = xmlAttribute.Value + " | " +xmlAttribute1.Value;
+            return description;
         }
     }
 }

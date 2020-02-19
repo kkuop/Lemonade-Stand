@@ -11,8 +11,11 @@ namespace LemonadeStand_3DayStarter
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.StartGame();
+            //Game game = new Game();
+            //game.StartGame();
+            WeatherData weather = new WeatherData("Milwaukee");
+            weather.CheckWeather();
+            Console.WriteLine("Todays forecast in Milwaukee\n\n" + weather.Condition + "\n\nTemperature: " + weather.Temperature);
             Console.ReadKey();
         }
     }
