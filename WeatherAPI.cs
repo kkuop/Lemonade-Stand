@@ -48,11 +48,6 @@ namespace LemonadeStand_3DayStarter
             XmlAttribute xmlAttribute = xmlNode.Attributes["max"];
             string highTemperature = xmlAttribute.Value;
             return highTemperature;
-
-            //XmlNode xmlNode = xmlDocument.SelectSingleNode("//temperature");
-            //XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
-            //string temperature = xmlAttribute.Value;
-            //return temperature;
         }
         public string GetCurrentTemperature (int currentDay)
         {
@@ -76,13 +71,6 @@ namespace LemonadeStand_3DayStarter
             XmlAttribute xmlAttribute = xmlNode.Attributes["name"];
             string description = xmlAttribute.Value;
             return description;
-
-            //XmlNode xmlNode = xmlDocument.SelectSingleNode("//weather");
-            //XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
-            //XmlNode xmlNode1 = xmlDocument.SelectSingleNode("//speed");
-            //XmlAttribute xmlAttribute1 = xmlNode1.Attributes["name"];
-            //string description = xmlAttribute.Value + " | " +xmlAttribute1.Value;
-            //return description;
         }
         public string GetPrecipitation(int currentDay)
         {
