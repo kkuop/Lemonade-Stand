@@ -64,6 +64,20 @@ namespace LemonadeStand_3DayStarter
         {
             Console.WriteLine($"Today's forecast is: {condition}\n\nThe high temperature will be: {temp} ");
         }
+        public static void DisplayRealWeatherInformation(string city, string condition, string temperature, string highTemperature, string precipitation)
+        {
+            Console.WriteLine($"Today's forecast for {city}:\n\n{condition}\n\nCurrent Temp: {temperature}\n\nHigh Temp: {highTemperature}\n\nPrecipitation: {precipitation}");
+        }
+        public static string ChooseWhereToOpenStand(string prompt)
+        {
+            Console.Clear();
+            string userInput;
+            Console.Write(prompt);
+            userInput = Console.ReadLine();
+            userInput.Replace(" ",string.Empty);
+            userInput.Replace("  ", string.Empty);
+            return userInput;
+        } 
         public static void DisplayInventory(int player, int lemonCount, int sugarCount, int iceCount, int cupsCount, double money)
         {
             Console.Clear();

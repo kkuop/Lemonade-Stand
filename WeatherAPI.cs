@@ -40,7 +40,7 @@ namespace LemonadeStand_3DayStarter
         {
             XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
             XmlNode xmlNode = xmlNodeList.Item(currentDay);
-            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.FirstChild;
             xmlNode = xmlNode.NextSibling;
             xmlNode = xmlNode.NextSibling;
             xmlNode = xmlNode.NextSibling;
@@ -58,11 +58,12 @@ namespace LemonadeStand_3DayStarter
         {
             XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
             XmlNode xmlNode = xmlNodeList.Item(currentDay);
+            xmlNode = xmlNode.FirstChild;
             xmlNode = xmlNode.NextSibling;
             xmlNode = xmlNode.NextSibling;
             xmlNode = xmlNode.NextSibling;
             xmlNode = xmlNode.NextSibling;
-            xmlNode = xmlNode.NextSibling;
+            
             XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
             string currentTemperature = xmlAttribute.Value;
             return currentTemperature;
@@ -71,7 +72,7 @@ namespace LemonadeStand_3DayStarter
         {
             XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
             XmlNode xmlNode = xmlNodeList.Item(currentDay);
-            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.FirstChild;
             XmlAttribute xmlAttribute = xmlNode.Attributes["name"];
             string description = xmlAttribute.Value;
             return description;
@@ -87,12 +88,18 @@ namespace LemonadeStand_3DayStarter
         {
             XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
             XmlNode xmlNode = xmlNodeList.Item(currentDay);
+            xmlNode = xmlNode.FirstChild;
             xmlNode = xmlNode.NextSibling;
-            xmlNode = xmlNode.NextSibling;
-            XmlAttribute xmlAttribute = xmlNode.Attributes["type"];
-            string precipitation = xmlAttribute.Value;
-            return precipitation;
-
+            if (xmlNode.Attributes["type"] == null) 
+            { 
+                return "no precipitation";
+            }
+            else
+            {
+                XmlAttribute xmlAttribute = xmlNode.Attributes["type"];
+                string precipitation = xmlAttribute.Value;
+                return precipitation;
+            }
         }
     }
 }

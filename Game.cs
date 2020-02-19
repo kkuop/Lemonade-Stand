@@ -91,18 +91,28 @@ namespace LemonadeStand_3DayStarter
 
         private void GenerateListOfDays()
         {
+            int dayCounterForWeather = 0;
+            
             days = new List<Day>();
+            string city = UserInterface.ChooseWhereToOpenStand("Type in a city to open your stand\n\n__");
             for (int i = 0; i < howManyDays; i++)
             {
-                days.Add(new Day(random));
-
+                days.Add(new Day(random, city, dayCounterForWeather));
+                dayCounterForWeather++;
             }
             currentDay = 0;
         }
 
         private void DisplayWeatherInformation()
         {
-            UserInterface.DisplayWeatherInformation(days[currentDay].weather.condition, days[currentDay].weather.temperature);
+            if (currentDay > 5)
+            {
+                UserInterface.DisplayWeatherInformation(days[currentDay].weather.condition, days[currentDay].weather.temperature);
+            }
+            else
+            {
+                UserInterface.DisplayRealWeatherInformation(days[currentDay].weatherReal.City, days[currentDay].weatherReal.Condition, days[currentDay].weatherReal.Temperature, days[currentDay].weatherReal.HighTemperature, days[currentDay].weatherReal.Precipitation);
+            }
         }
 
         private void DisplayInventory()
@@ -170,7 +180,14 @@ namespace LemonadeStand_3DayStarter
             ConsoleKeyInfo userInput;
             do
             {
-                Console.WriteLine($"Todays forecast:  Day {currentDay+1} | {days[currentDay].weather.condition} | {days[currentDay].weather.temperature}\n");
+                if (currentDay <=5)
+                {
+                    Console.WriteLine($"Todays forecast: Day {currentDay+1} | {days[currentDay].weatherReal.Condition} | {days[currentDay].weatherReal.HighTemperature}");
+                }
+                else
+                {
+                    Console.WriteLine($"Todays forecast:  Day {currentDay + 1} | {days[currentDay].weather.condition} | {days[currentDay].weather.temperature}\n");
+                }                
                 Console.WriteLine("Please choose an option...\n\na)Change Recipe\nb)Buy Ingredients\nc)See Inventory\nd)Advance Day\n");
                 userInput = Console.ReadKey();
                 if (userInput.KeyChar == 'a')

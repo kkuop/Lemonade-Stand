@@ -10,14 +10,25 @@ namespace LemonadeStand_3DayStarter
     {
         //member vars
         public Weather weather;
+        public WeatherData weatherReal;
         public List<Customer> customers;
         Random parentRandom;
+        private int dayCount;
         
         //constructor
-        public Day(Random Rng)
+        public Day(Random Rng, string city, int dayCounterForWeather)
         {
             parentRandom = Rng;
-            weather = new Weather(parentRandom);
+            this.dayCount = dayCounterForWeather;            
+            if (dayCounterForWeather <= 5)
+            {                
+                weatherReal = new WeatherData(city, dayCounterForWeather);
+                weatherReal.CheckWeather();
+            }
+            else
+            {
+                weather = new Weather(parentRandom);
+            }
             customers = DetermineNumberOfCustomers();
         }
         //member methods
@@ -25,19 +36,37 @@ namespace LemonadeStand_3DayStarter
         {
             int amountOfCustomers;
             customers = new List<Customer>();
-            if (weather.condition == "Hot and Dry")
+            if (dayCount <= 5)
             {
-                amountOfCustomers = parentRandom.Next(30, 50);
-    
-            }
-            else if (weather.condition == "Mostly Sunny" )
-            {
-                amountOfCustomers = parentRandom.Next(10, 35);
+                if (Convert.ToDouble(weatherReal.HighTemperature) > 75)
+                {
+                    amountOfCustomers = parentRandom.Next(30, 50);
+                }
+                else if (Convert.ToDouble(weatherReal.HighTemperature) > 65)
+                {
+                    amountOfCustomers = parentRandom.Next(10, 35);
+                }
+                else
+                {
+                    amountOfCustomers = parentRandom.Next(0, 15);
+                }
             }
             else
             {
-                amountOfCustomers = parentRandom.Next(0, 15);
+                if (weather.condition == "Hot and Dry" )
+                {
+                    amountOfCustomers = parentRandom.Next(30, 50);
 
+                }
+                else if (weather.condition == "Mostly Sunny" )
+                {
+                    amountOfCustomers = parentRandom.Next(10, 35);
+                }
+                else
+                {
+                    amountOfCustomers = parentRandom.Next(0, 15);
+
+                }
             }
             for (int i = 0; i < amountOfCustomers; i++)
             {
