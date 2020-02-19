@@ -36,21 +36,63 @@ namespace LemonadeStand_3DayStarter
                 return xmlDocument;
             }
         }
-        public string GetTemperature()
+        public string GetHighTemperature(int currentDay)
         {
-            XmlNode xmlNode = xmlDocument.SelectSingleNode("//temperature");
-            XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
-            string temperature = xmlAttribute.Value;
-            return temperature;
+            XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
+            XmlNode xmlNode = xmlNodeList.Item(currentDay);
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            XmlAttribute xmlAttribute = xmlNode.Attributes["max"];
+            string highTemperature = xmlAttribute.Value;
+            return highTemperature;
+
+            //XmlNode xmlNode = xmlDocument.SelectSingleNode("//temperature");
+            //XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
+            //string temperature = xmlAttribute.Value;
+            //return temperature;
         }
-        public string GetDescription()
+        public string GetCurrentTemperature (int currentDay)
         {
-            XmlNode xmlNode = xmlDocument.SelectSingleNode("//weather");
+            XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
+            XmlNode xmlNode = xmlNodeList.Item(currentDay);
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
             XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
-            XmlNode xmlNode1 = xmlDocument.SelectSingleNode("//speed");
-            XmlAttribute xmlAttribute1 = xmlNode1.Attributes["name"];
-            string description = xmlAttribute.Value + " | " +xmlAttribute1.Value;
+            string currentTemperature = xmlAttribute.Value;
+            return currentTemperature;
+        }
+        public string GetDescription(int currentDay)
+        {
+            XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
+            XmlNode xmlNode = xmlNodeList.Item(currentDay);
+            xmlNode = xmlNode.NextSibling;
+            XmlAttribute xmlAttribute = xmlNode.Attributes["name"];
+            string description = xmlAttribute.Value;
             return description;
+
+            //XmlNode xmlNode = xmlDocument.SelectSingleNode("//weather");
+            //XmlAttribute xmlAttribute = xmlNode.Attributes["value"];
+            //XmlNode xmlNode1 = xmlDocument.SelectSingleNode("//speed");
+            //XmlAttribute xmlAttribute1 = xmlNode1.Attributes["name"];
+            //string description = xmlAttribute.Value + " | " +xmlAttribute1.Value;
+            //return description;
+        }
+        public string GetPrecipitation(int currentDay)
+        {
+            XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//time");
+            XmlNode xmlNode = xmlNodeList.Item(currentDay);
+            xmlNode = xmlNode.NextSibling;
+            xmlNode = xmlNode.NextSibling;
+            XmlAttribute xmlAttribute = xmlNode.Attributes["type"];
+            string precipitation = xmlAttribute.Value;
+            return precipitation;
+
         }
     }
 }

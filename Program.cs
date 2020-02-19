@@ -13,7 +13,7 @@ namespace LemonadeStand_3DayStarter
         {
             //Game game = new Game();
             //game.StartGame();
-            WeatherData weather = new WeatherData("Milwaukee");
+            WeatherData weather = new WeatherData("Milwaukee", 0);
             weather.CheckWeather();
             Console.WriteLine("Todays forecast in Milwaukee\n\n" + weather.Condition + "\n\nTemperature: " + weather.Temperature);
             Console.ReadKey();

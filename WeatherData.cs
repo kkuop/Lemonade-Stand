@@ -10,19 +10,25 @@ namespace LemonadeStand_3DayStarter
     {
         public string City { get; set; }
         public string Temperature { get; set; }
+        public string HighTemperature { get; set; }
         public string Condition { get; set; }
+        public string Precipitation { get; set; }
 
+        public int currentDay;
         //constructor
-        public WeatherData(string City)
+        public WeatherData(string City, int currentDay)
         {
             this.City = City;
+            this.currentDay = currentDay;
         }
         //member methods
         public void CheckWeather()
         {
             WeatherAPI weatherAPI = new WeatherAPI(City);
-            Temperature = weatherAPI.GetTemperature();
-            Condition = weatherAPI.GetDescription();
+            Temperature = weatherAPI.GetCurrentTemperature(currentDay);
+            HighTemperature = weatherAPI.GetHighTemperature(currentDay);
+            Condition = weatherAPI.GetDescription(currentDay);
+            Precipitation = weatherAPI.GetPrecipitation(currentDay);
         }
     }
 }
