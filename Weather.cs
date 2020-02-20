@@ -8,6 +8,12 @@ using System.Net;
 
 namespace LemonadeStand_3DayStarter
 {
+    //Here is best case for Open/Close principle of SOLID
+    //The Weather class is open for extension seeing as how
+    //I have the random weather generator in the weather class
+    //but also the WeatherAPI overload on the constructor 
+    //making it a great extension without having to modify
+    //the Weather class
     class Weather
     {
         //member vars
